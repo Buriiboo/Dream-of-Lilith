@@ -2,8 +2,12 @@ namespace CharacterBase
 {
     public class Character
     {
-        string Name {get; set;}
-        double Damage {get; set;}
-
+        public string Name {get; set;}
+        public int MaxHp {get; set;}
+        public int CurrentHP {get; set;}
+        public double Damage {get; set;}
+        public int Armor   {get; set;}
+        public int Luck {get; set;}
+        
     }
 }
