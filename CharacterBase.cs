@@ -1,6 +1,6 @@
 namespace Dream;
 
-public class Character
+public abstract class Character
 {
     public string Name {get; set;}
     public int MaxHP {get; set;}
@@ -8,7 +8,6 @@ public class Character
     public double Damage {get; set;}
     public int Armor   {get; set;}
     public int Luck {get; set;}
-    public abstract void Encounter();
     public Character(string name, int maxHP, int currentHP, double damage, int armor, int luck)
     {
         Name = name;
