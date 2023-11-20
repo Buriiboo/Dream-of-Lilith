@@ -2,9 +2,13 @@ namespace Dream;
 
 public class Player : Character
 {
-    // Constructor for creating a Player object
+    public List<Item> Inventory {get; set;}
+    public List<Spell> Spells {get; set;}
+
     public Player(string name, int maxHP, int currentHP, double damage, int armor, int luck) : base(name, maxHP, currentHP, damage, armor, luck)
     {
+        List<Item> Inventory = new List<Item>();
+        List<Spell> Spells = new List<Spell>();
     }
 
     // Static method for character creation (assuming it's part of the Player class)
