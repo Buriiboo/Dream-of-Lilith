@@ -8,8 +8,9 @@ public class GameLogic
 
     public GameLogic()
     {
-        // Initialize player and currentRoom to avoid CS8618 warning
-        player = new Player("", 0, 0, 0.0, 0, 0);
+        List<Item> initialInventory = new List<Item> { /* add initial items */ };
+        List<Spell> initialSpells = new List<Spell> { /* add initial spells */ };
+        player = new Player("", 0, 0, 0, 0.0, 0, 0, initialInventory, initialSpells);
         currentRoom = new Room(); // You need to define the Room class
     }
 

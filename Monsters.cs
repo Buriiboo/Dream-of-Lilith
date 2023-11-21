@@ -6,7 +6,7 @@ public class Monster : Character
     public string MonsterType { get; set; }    
     public int ExperiencePoints { get; set; }
     public int LootRarity { get; set; }
-    public Monster(string name, int maxHP, int currentHP, double damage, int armor, int luck)
+    public Monster(string name, int maxHP, int currentHP, int level, double damage, int armor, int luck)
         : base(name, maxHP, currentHP, level, damage, armor, luck)
     {
         MonsterType = "";
