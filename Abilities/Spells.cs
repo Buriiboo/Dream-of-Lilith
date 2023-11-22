@@ -3,23 +3,21 @@ using Dream;
 public class Fireball : Ability
 {
     public Fireball()
+        : base("Fireball", "A ball of fire that burns your enemy.", 20, 50)
     {
-        Name = "Fireball";
-        ManaCost = 20;
-        Power = 50;
     }
 
-    public override void UseAbility(Character player, Character target)
+    public override void UseAbility(Player player, Monster currentEnemy)
     {
-        // Using parts of the base class method
-        if (player.CurrentMana >= ManaCost)
+        // Check for null before accessing properties or methods
+        if (player != null && currentEnemy != null)
         {
             // Deduct mana cost
-            base.UseAbility(player, target);
+            player.CurrentMana -= ManaCost;
 
-            Console.WriteLine($"You throw a {Name}!");
+            Console.WriteLine($"You cast {Name}!!");
             // Apply additional Fireball-specific logic
-            target.CurrentHP -= Power;
+            currentEnemy.CurrentHP -= Power;
         }
         else
         {

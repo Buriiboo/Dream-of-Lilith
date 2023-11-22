@@ -15,12 +15,12 @@ public abstract class Ability
         ManaCost = manaCost;
     }
   
-    public virtual void UseAbility(Character player, Character target);
+    public virtual void UseAbility(Player player, Monster currentEnemy)
     {
         if (player.CurrentMana >= ManaCost)
         {
             player.CurrentMana -= ManaCost;
-            target.CurrentHP -= Power;
+            currentEnemy.CurrentHP -= Power;
         }
         else
         {
@@ -28,3 +28,4 @@ public abstract class Ability
         }
     }
 }
+//---------------------------------------------------------------------------

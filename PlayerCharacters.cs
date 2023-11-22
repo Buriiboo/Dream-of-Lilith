@@ -4,16 +4,14 @@ public class Player : Character
 {
     int Exp { get; set; }
     public List<Item> Inventory { get; set; }
-    public List<Spell> Spells { get; set; }
+    public List<Ability> Abilities { get; set; }
     
-
-    public Player(string name, int maxHP, int currentHP, int maxMana, int currentMana, int level, int damage, int armor, int luck, int exp, List<Item> inventory, List<Spell> spells)
+    public Player(string name, int maxHP, int currentHP, int maxMana, int currentMana, int level, int damage, int armor, int luck, int exp, List<Item> inventory, List<Ability> abilities)
         : base(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck)
     {   
         Exp = exp;
         Inventory = inventory ?? new List<Item>();
-        Spells = spells ?? new List<Spell>();
-    
+        Abilities = new List<Ability>();    
     }
 
     // Static method for character creation
@@ -26,13 +24,14 @@ public class Player : Character
         int maxMana = 100;  // start maxMana
         int currentMana = 100;  // start currentMana
         int level = 1;  // start level
-        int damage = 10.0;  // start damage
+        int damage = 10;  // start damage
         int armor = 5;  // start armor
         int luck = 3;  // start luck
+        int exp = 0;  // start exp
         List<Item> inventory = new List<Item>();  // start inventory
-        List<Spell> abilities = new List<Spell>();  // start spells
+        List<Ability> abilities = new List<Ability>();  // start spells
 
-        return new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, new List<Item>(), new List<Spell>());
+        return new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, exp, inventory, abilities);
         
     }
 }
