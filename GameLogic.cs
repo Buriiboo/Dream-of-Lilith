@@ -21,8 +21,9 @@ public class GameLogic
         while (true)
         {
             Console.WriteLine($"{player.Name} stands in {currentRoom.Description}");
-            Console.WriteLine("1. Enter the next room");
-            Console.WriteLine("2. Engage in a monster battle");
+            Console.WriteLine("1. Enter the room");
+            Console.WriteLine("2. Abilities");
+            Console.WriteLine("3. Abilities");
 
             string? choice = Console.ReadLine();
 
