@@ -22,9 +22,10 @@ public class UndeadList
     {
         Monsters = new List<Monster>
         {
-            new Monster("Zombie", 100, 100, 20, 20, 1, 10, 5, 3, "Undead", 50, 2),
-            new Monster("Skeleton", 150, 150, 20, 20, 2, 15, 8, 5, "Undead", 75, 3),
-            new Monster("Ghost", 200, 200, 20, 20, 3, 20, 10, 8, "Undead", 100, 4)
+            new Monster("Zombie", 400, 400, 20, 20, 1, 10, 5, 3, "Undead", 50, 2),
+            new Monster("Skeleton", 600, 600, 20, 20, 2, 15, 8, 5, "Undead", 75, 3),
+            new Monster("Ghost", 800, 800, 20, 20, 3, 20, 10, 8, "Undead", 100, 4),
+            new Monster("Spooky Zombie", 1500, 1500, 20, 20, 15, 20, 10, 8, "Undead", 1000, 4)
         };
     }
     public Monster GetRandomUndead()    

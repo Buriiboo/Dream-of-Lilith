@@ -19,17 +19,20 @@ public class Player : Character
     {
         Console.WriteLine("What is your name, traveler?");
         string name = Console.ReadLine() ?? ""; // You need to implement logic to get the player's name
-        int maxHP = 100;  // start maxHP
-        int currentHP = 100;  // start currentHP
+        int maxHP = 500;  // start maxHP
+        int currentHP = 500;  // start currentHP
         int maxMana = 100;  // start maxMana
         int currentMana = 100;  // start currentMana
         int level = 1;  // start level
         int damage = 10;  // start damage
         int armor = 5;  // start armor
-        int luck = 3;  // start luck
+        int luck = 30;  // start luck
         int exp = 0;  // start exp
         List<Item> inventory = new List<Item>();  // start inventory
         List<Ability> abilities = new List<Ability>();  // start spells
+
+        Fireball fireball = new Fireball();
+        abilities.Add(fireball);
 
         return new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, exp, inventory, abilities);
         
