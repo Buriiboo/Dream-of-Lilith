@@ -29,13 +29,12 @@ public class Player : Character
         int luck = 30;  // start luck
         int exp = 0;  // start exp
         List<Item> inventory = new List<Item>();  // start inventory
-        List<Ability> abilities = new List<Ability>();  // start spells
+        List<Ability> abilities = new List<Ability> { new Fireball(), new Frostbolt() }; // start spells;
+        Console.WriteLine($"Number of abilities: {abilities.Count}");
 
-        Fireball fireball = new Fireball();
-        abilities.Add(fireball);
 
-        return new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, exp, inventory, abilities);
-        
+        Player player = new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, exp, inventory, abilities);
+        return player;
     }
 }
 

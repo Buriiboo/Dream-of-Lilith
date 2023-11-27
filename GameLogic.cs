@@ -7,9 +7,6 @@ public class GameLogic
 
     public GameLogic()
     {
-        List<Item> initialInventory = new List<Item> { /* add initial items */ };
-        List<Ability> initialAbilities = new List<Ability> { /* add initial skills */ };
-        player = new Player("Player", 100, 100, 100, 100, 1, 10, 5, 3, 0, initialInventory, initialAbilities);
         currentRoom = new Room("", "", ""); // You need to define the Room class
     }
 
@@ -34,8 +31,12 @@ public class GameLogic
                     break;
                 case "2":
                     // Handle engaging in a monster battle
-                     BattleLogic battle = new BattleLogic(player);  // Pass the player instance to BattleLogic
-                    battle.StartBattle(new UndeadList().GetRandomUndead());
+                    BattleLogic battle = new BattleLogic(player);  // Pass the player instance to BattleLogic
+                    battle.StartBattle(player, new UndeadList().GetRandomUndead());
+                    break;
+                case "3":
+                    // Handle using abilities
+
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Try again.");
@@ -57,7 +58,7 @@ public class BattleLogic
         this.player = player;
     }
 
-    public void StartBattle(Monster enemy)
+    public void StartBattle(Player player, Monster enemy)
     {
         currentEnemy = enemy;
         Console.WriteLine($"You encounter a {currentEnemy.Name}!");
@@ -78,7 +79,7 @@ public class BattleLogic
                     break;
                 case "2":
                     // Use Ability logic
-                    AbilityList();
+                    AbilityList(player, currentEnemy);
                     break;
                 default:
                     Console.WriteLine("Invalid choice. Try again.");
@@ -107,8 +108,8 @@ public class BattleLogic
         Console.WriteLine($"You dealt {damageDealt} damage to {currentEnemy.Name}!");
     }
 
-   private void AbilityList()
-    {
+    public void AbilityList(Player player, Monster currentEnemy)
+    {   
         // Display the list of abilities
         Console.WriteLine("Choose an ability:");
         for (int i = 0; i < player.Abilities.Count; i++)
@@ -116,18 +117,25 @@ public class BattleLogic
             Console.WriteLine($"{i + 1}. {player.Abilities[i].Name}");
         }
 
-        // Take input from the user
-        int choice;
-        if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= player.Abilities.Count)
+        // Get the player's choice
+        string choice = Console.ReadLine()?.Trim() ?? "";
+
+        // Convert the choice to an index
+        if (int.TryParse(choice, out int abilityIndex) && abilityIndex >= 1 && abilityIndex <= player.Abilities.Count)
         {
-            // User input is valid, use the selected ability
-            player.Abilities[choice - 1].UseAbility(player, currentEnemy);
+            // Get the selected ability
+            Ability selectedAbility = player.Abilities[abilityIndex - 1];
+
+            // Use the selected ability
+            selectedAbility.UseAbility(player, currentEnemy);
         }
+        
         else
         {
             Console.WriteLine("Invalid choice. Try again.");
         }
     }
+/*
     private void spellList()
     {   
         // Display the list of abilities
@@ -138,6 +146,7 @@ public class BattleLogic
             Console.ReadLine();
         }
     }
+    */
 
     private void EnemyTurn()
     {

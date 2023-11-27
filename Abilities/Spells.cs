@@ -27,7 +27,8 @@ public class Fireball : Ability
 
         public void TriggerMulticast(Player player, Monster currentEnemy)
         {
-            int multicastLevel = RollMulticastLevel(player);
+            MulticastLogic multicastLogic = new MulticastLogic();
+            int multicastLevel = multicastLogic.RollMulticastLevel(player);
             Console.WriteLine($"Multicast Level: {multicastLevel}");
 
             // Add additional effects based on multicastLevel
@@ -55,7 +56,71 @@ public class Fireball : Ability
                     break;
             }
         }
+}
+public class Frostbolt : Ability
+{
+    public Frostbolt()
+        : base("Frostbolt", "A sharp icy shard to pierce your enemies.", 60, 50)
+    {
+    }
 
+    public override void UseAbility(Player player, Monster currentEnemy)
+    {
+        // Check for null before accessing properties or methods
+        if (player != null && currentEnemy != null)
+        {
+            // Deduct mana cost
+            player.CurrentMana -= ManaCost;
+
+            Console.WriteLine($"You cast {Name}!!");
+            // Apply additional Fireball-specific logic here
+            TriggerMulticast(player, currentEnemy);
+        }
+        else
+        {
+            Console.WriteLine("You don't have enough mana to use this ability!");
+        }
+    }
+
+        public void TriggerMulticast(Player player, Monster currentEnemy)
+        {
+            MulticastLogic multicastLogic = new MulticastLogic();
+            int multicastLevel = multicastLogic.RollMulticastLevel(player);
+            Console.WriteLine($"Multicast Level: {multicastLevel}");
+
+            // Add additional effects based on multicastLevel
+            switch (multicastLevel)
+            {
+                case 0:
+                    Console.WriteLine($"You cast a normal frostbolt and deal {Power * player.Damage} damage!");
+                    currentEnemy.CurrentHP -= Power * player.Damage;
+                    break;
+                case 2:
+                    Console.WriteLine($"Multicast level 2!! You deal {Power * player.Damage * 2} damage!");
+                    currentEnemy.CurrentHP -= Power * player.Damage * 2;
+                    break;
+                case 3:
+                    Console.WriteLine($"Multicast level 3!! You deal {Power * player.Damage * 3} damage!");
+                    currentEnemy.CurrentHP -= Power * player.Damage * 3;
+                    break;
+                case 4:
+                    Console.WriteLine($"Multicast level 4!! You deal {Power * player.Damage * 4} damage!");
+                    currentEnemy.CurrentHP -= Power * player.Damage * 4;
+                    break;
+                default:
+                    Console.WriteLine($"Your magic implodes and you deal {Power * player.Damage / 2} damage to yourself...");
+                    player.CurrentHP -= Power * player.Damage / 2;
+                    break;
+            }
+        }
+
+}
+
+
+
+//---------------------------------------------------------------------------------------------
+public class MulticastLogic
+    {
         public int RollMulticastLevel(Player player)
         {
             // Define the probabilities for each level based on Luck
@@ -98,4 +163,4 @@ public class Fireball : Ability
 
             return probabilities;
         }
-}
+    }

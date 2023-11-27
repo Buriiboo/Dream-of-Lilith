@@ -25,3 +25,5 @@ public abstract class Character
         Luck = luck;
     }
 }
+//Lägg till attackmetod.
+//Attackm metod i player och monster.
