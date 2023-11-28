@@ -51,13 +51,6 @@ public class GameLogic
 
 public class BattleLogic
 {
-    private Player player;
-    private Monster currentEnemy;
-    public BattleLogic(Player player)
-    {
-        this.player = player;
-    }
-
     public void StartBattle(Player player, Monster enemy)
     {
         currentEnemy = enemy;
@@ -85,9 +78,6 @@ public class BattleLogic
                     Console.WriteLine("Invalid choice. Try again.");
                     break;
             }
-
-            // Enemy's turn (You can add more logic here)
-            EnemyTurn();
         }
 
         // Check who won the battle
@@ -101,65 +91,5 @@ public class BattleLogic
         }
     }
 
-    private void BasicAttack()
-    {
-        int damageDealt = CalculateDamage(player.Damage, currentEnemy.Armor);
-        currentEnemy.CurrentHP -= damageDealt;
-        Console.WriteLine($"You dealt {damageDealt} damage to {currentEnemy.Name}!");
-    }
-
-    public void AbilityList(Player player, Monster currentEnemy)
-    {   
-        // Display the list of abilities
-        Console.WriteLine("Choose an ability:");
-        for (int i = 0; i < player.Abilities.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {player.Abilities[i].Name}");
-        }
-
-        // Get the player's choice
-        string choice = Console.ReadLine()?.Trim() ?? "";
-
-        // Convert the choice to an index
-        if (int.TryParse(choice, out int abilityIndex) && abilityIndex >= 1 && abilityIndex <= player.Abilities.Count)
-        {
-            // Get the selected ability
-            Ability selectedAbility = player.Abilities[abilityIndex - 1];
-
-            // Use the selected ability
-            selectedAbility.UseAbility(player, currentEnemy);
-        }
-        
-        else
-        {
-            Console.WriteLine("Invalid choice. Try again.");
-        }
-    }
-/*
-    private void spellList()
-    {   
-        // Display the list of abilities
-        Console.WriteLine("Choose an ability:");
-        for (int i = 0; i < player.Abilities.Count; i++)
-        {
-            Console.WriteLine($"{i + 1}. {player.Abilities[i].Name}");
-            Console.ReadLine();
-        }
-    }
-    */
-
-    private void EnemyTurn()
-    {
-        // For simplicity, let's assume the enemy always performs a basic attack
-        int damageDealt = CalculateDamage(currentEnemy.Damage, player.Armor);
-        player.CurrentHP -= damageDealt;
-        Console.WriteLine($"{currentEnemy.Name} dealt {damageDealt} damage to you!");
-    }
-
-    private int CalculateDamage(int attackerDamage, int defenderArmor)
-    {
-        // Basic damage calculation (you might want to enhance this based on your game mechanics)
-        int damage = Math.Max(1, attackerDamage - defenderArmor);
-        return damage;
-    }
+   
 }

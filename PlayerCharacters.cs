@@ -1,7 +1,8 @@
 namespace Dream;
 
-public class Player : Character
+public class Player : Actor
 {
+    Monster currentEnemy;
     int Exp { get; set; }
     public List<Item> Inventory { get; set; }
     public List<Ability> Abilities { get; set; }

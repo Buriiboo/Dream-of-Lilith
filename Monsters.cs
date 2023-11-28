@@ -1,8 +1,9 @@
 namespace Dream;
 using System.Collections.Generic;
 
-public class Monster : Character
+public class Monster : Actor
 {
+    Player player;
     public string MonsterType { get; set; }    
     public int Exp { get; set; }
     public int LootRarity { get; set; }
@@ -13,6 +14,12 @@ public class Monster : Character
         LootRarity = lootRarity;
         Exp = exp;
     }    
+    public override void TakeDamage(int Damage)
+    {
+        CurrentHP -= player.Damage;
+        System.Console.WriteLine($"{player.Name} attacks {Name} for {player.Damage} damage!");
+        System.Console.WriteLine($"{Name} has {CurrentHP} HP left!");
+    }
 }
 
 public class UndeadList
