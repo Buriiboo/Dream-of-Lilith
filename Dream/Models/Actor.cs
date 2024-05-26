@@ -1,4 +1,4 @@
-namespace Dream
+namespace Dream.Models
 {
     public abstract class Actor
     {
@@ -29,16 +29,14 @@ namespace Dream
 
         public virtual void TakeDamage(int damage)
         {
-            // Calculate the actual damage considering the Armor
             int actualDamage = damage - Armor;
-            if (actualDamage < 0) actualDamage = 0; // Ensure no negative damage
+            if (actualDamage < 0) actualDamage = 0;
 
             CurrentHP -= actualDamage;
-            if (CurrentHP < 0) CurrentHP = 0; // Ensure HP doesn't go below 0
+            if (CurrentHP < 0) CurrentHP = 0;
             Console.WriteLine($"{Name} takes {actualDamage} damage. Current HP: {CurrentHP}/{MaxHP}");
         }
 
-        // Check if Actor is alive
         public bool IsAlive()
         {
             return CurrentHP > 0;
