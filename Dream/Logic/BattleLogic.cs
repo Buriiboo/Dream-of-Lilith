@@ -55,7 +55,8 @@ namespace Dream.Logic
             Console.WriteLine("Choose an ability:");
             for (int i = 0; i < player.Abilities.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {player.Abilities[i].Name}");
+                var ability = player.Abilities[i];
+                Console.WriteLine($"{i + 1}. {ability.Name} - {ability.Description} (Damage: {ability.Power}, Mana Cost: {ability.ManaCost})");            
             }
 
             if (int.TryParse(Console.ReadLine(), out int abilityIndex) && abilityIndex > 0 && abilityIndex <= player.Abilities.Count)
