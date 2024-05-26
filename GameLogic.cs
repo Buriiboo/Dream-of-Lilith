@@ -1,95 +1,124 @@
-namespace Dream;
-
-public class GameLogic
+namespace Dream
 {
-    private Player player;
-    private Room currentRoom;
-
-    public GameLogic()
+    public class GameLogic
     {
-        currentRoom = new Room("", "", ""); // You need to define the Room class
-    }
+        private Player player;
+        private Room currentRoom;
 
-    public void StartGame()
-    {
-        player = Player.CharacterCreation();
-
-        // Main game loop
-        while (true)
+        public GameLogic()
         {
-            Console.WriteLine($"{player.Name} stands in {currentRoom.Description}");
-            Console.WriteLine("1. Enter the room");
-            Console.WriteLine("2. Battoru");
-            Console.WriteLine("3. Abilities");
-
-            string? choice = Console.ReadLine();
-
-            switch (choice)
-            {
-                case "1":
-                    // Handle entering the next room
-                    break;
-                case "2":
-                    // Handle engaging in a monster battle
-                    BattleLogic battle = new BattleLogic(player);  // Pass the player instance to BattleLogic
-                    battle.StartBattle(player, new UndeadList().GetRandomUndead());
-                    break;
-                case "3":
-                    // Handle using abilities
-
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Try again.");
-                    break;
-            }
+            currentRoom = new Room("", "", ""); // Ensure Room class is defined with a matching constructor
         }
-    }
-}
-//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-public class BattleLogic
-{
-    public void StartBattle(Player player, Monster enemy)
-    {
-        currentEnemy = enemy;
-        Console.WriteLine($"You encounter a {currentEnemy.Name}!");
-
-        while (player.CurrentHP > 0 && currentEnemy.CurrentHP > 0)
+        public void StartGame()
         {
-            Console.WriteLine($"{player.Name}'s HP: {player.MaxHP}/{player.CurrentHP} | {currentEnemy.Name}'s HP: {currentEnemy.MaxHP}/{currentEnemy.CurrentHP}");
-            Console.WriteLine("1. Attack");
-            Console.WriteLine("2. Use Ability");
+            player = Player.CharacterCreation();
 
-            string choice = Console.ReadLine();
-
-            switch (choice)
+            // Main game loop
+            while (true)
             {
-                case "1":
-                    // Basic attack logic
-                    BasicAttack();
-                    break;
-                case "2":
-                    // Use Ability logic
-                    AbilityList(player, currentEnemy);
-                    break;
-                default:
-                    Console.WriteLine("Invalid choice. Try again.");
-                    break;
+                Console.WriteLine($"{player.Name} stands in {currentRoom.Description}");
+                Console.WriteLine("1. Enter the room");
+                Console.WriteLine("2. Battle");
+                Console.WriteLine("3. Abilities");
+
+                string? choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        EnterRoom();
+                        break;
+                    case "2":
+                        StartBattle();
+                        break;
+                    case "3":
+                        UseAbilities();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Try again.");
+                        break;
+                }
             }
         }
 
-        // Check who won the battle
-        if (player.CurrentHP <= 0)
+        private void EnterRoom()
         {
-            Console.WriteLine("You were defeated!");
+            // Logic for entering the next room
+            Console.WriteLine("You enter a new room...");
         }
-        else
+
+        private void StartBattle()
         {
-            Console.WriteLine($"You defeated the {currentEnemy.Name}!");
+            BattleLogic battle = new BattleLogic(player);  // Ensure the constructor matches
+            battle.StartBattle(player, new UndeadList().GetRandomUndead());
+        }
+
+        private void UseAbilities()
+        {
+            // Logic for using abilities
+            Console.WriteLine("You use an ability...");
         }
     }
 
-   
+    public class BattleLogic
+    {
+        private Monster currentEnemy;
+
+        public BattleLogic(Player player)
+        {
+            // Initialize any necessary data
+        }
+
+        public void StartBattle(Player player, Monster enemy)
+        {
+            currentEnemy = enemy;
+            Console.WriteLine($"You encounter a {currentEnemy.Name}!");
+
+            while (player.CurrentHP > 0 && currentEnemy.CurrentHP > 0)
+            {
+                Console.WriteLine($"{player.Name}'s HP: {player.CurrentHP}/{player.MaxHP} | {currentEnemy.Name}'s HP: {currentEnemy.CurrentHP}/{currentEnemy.MaxHP}");
+                Console.WriteLine("1. Attack");
+                Console.WriteLine("2. Use Ability");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        BasicAttack(player, currentEnemy);
+                        break;
+                    case "2":
+                        UseAbility(player, currentEnemy);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Try again.");
+                        break;
+                }
+            }
+
+            if (player.CurrentHP <= 0)
+            {
+                Console.WriteLine("You were defeated!");
+            }
+            else
+            {
+                Console.WriteLine($"You defeated the {currentEnemy.Name}!");
+            }
+        }
+
+        private void BasicAttack(Player player, Monster enemy)
+        {
+            // Implement basic attack logic
+            Console.WriteLine($"{player.Name} attacks {enemy.Name}!");
+            // Adjust HP of enemy based on player's attack power
+        }
+
+        private void UseAbility(Player player, Monster enemy)
+        {
+            // Implement ability usage logic
+            Console.WriteLine($"{player.Name} uses an ability on {enemy.Name}!");
+            // Adjust HP or status of enemy based on ability effects
+        }
+    }
 }

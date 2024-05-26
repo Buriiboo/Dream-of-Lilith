@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Dream;
 
 public class Player : Actor
@@ -12,14 +15,23 @@ public class Player : Actor
     {   
         Exp = exp;
         Inventory = inventory ?? new List<Item>();
-        Abilities = new List<Ability>();    
+        Abilities = abilities ?? new List<Ability>();    
     }
+
+    public override void Attack(Actor target)
+    {
+        System.Console.WriteLine($"{Name} attacks {target.Name}");
+        target.TakeDamage(Damage);    // Implement attack logic
+    }
+    
+
+    
 
     // Static method for character creation
     public static Player CharacterCreation()
     {
         Console.WriteLine("What is your name, traveler?");
-        string name = Console.ReadLine() ?? ""; // You need to implement logic to get the player's name
+        string name = Console.ReadLine() ?? "Unknown Hero"; // You need to implement logic to get the player's name
         int maxHP = 500;  // start maxHP
         int currentHP = 500;  // start currentHP
         int maxMana = 100;  // start maxMana
@@ -34,8 +46,8 @@ public class Player : Actor
         Console.WriteLine($"Number of abilities: {abilities.Count}");
 
 
-        Player player = new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, exp, inventory, abilities);
-        return player;
+        return new Player(name, maxHP, currentHP, maxMana, currentMana, level, damage, armor, luck, exp, inventory, abilities);
+        
     }
 }
 
