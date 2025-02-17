@@ -1,27 +1,34 @@
-using System;
-using Dream.Models;
-using Dream.Logic;
+// <copyright file="GameLogic.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Dream.Game
 {
+    using System;
+    using Dream.Abilities;
+    using Dream.Logic;
+    using Dream.Models;
+
     public class GameLogic
     {
-        private Player player;
         private Room currentRoom;
+
+        public Player Player { get; set; }
 
         public GameLogic()
         {
-            currentRoom = new Room("", "", ""); // Ensure Room class is defined with a matching constructor
+            this.currentRoom = new Room(string.Empty, string.Empty, string.Empty); // Ensure Room class is defined with a matching constructor
+            this.Player = new Player(string.Empty, 0, 0, 0, 0, 0, 0, 0, 0, 0, new List<Item>(), new List<Ability>(), new char[10, 10]); // Ensure Player class is defined with a matching constructor
         }
 
         public void StartGame()
         {
-            player = Player.CharacterCreation();
+            this.Player = Player.CharacterCreation();
 
             // Main game loop
             while (true)
             {
-                Console.WriteLine($"{player.Name} stands in {currentRoom.Description}");
+                Console.WriteLine($"{this.Player.Name} stands in {this.currentRoom.Description}");
                 Console.WriteLine("1. Enter the room");
                 Console.WriteLine("2. Battle");
                 Console.WriteLine("3. Abilities");
@@ -31,13 +38,13 @@ namespace Dream.Game
                 switch (choice)
                 {
                     case "1":
-                        EnterRoom();
+                        this.EnterRoom();
                         break;
                     case "2":
-                        StartBattle();
+                        this.StartBattle();
                         break;
                     case "3":
-                        UseAbilities();
+                        this.UseAbilities();
                         break;
                     default:
                         Console.WriteLine("Invalid choice. Try again.");
@@ -54,8 +61,8 @@ namespace Dream.Game
 
         private void StartBattle()
         {
-            BattleLogic battle = new BattleLogic();
-            battle.StartBattle(player, new UndeadList().GetRandomUndead());
+            BattleLogic battle = new () { CurrentEnemy = new UndeadList().GetRandomUndead() };
+            battle.StartBattle(this.Player, battle.CurrentEnemy);
         }
 
         private void UseAbilities()
