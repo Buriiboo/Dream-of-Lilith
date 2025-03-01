@@ -6,7 +6,7 @@ namespace Dream.Logic
 {
     using Dream.Models;
 
-    public class MulticastLogic
+    public class MulticastLogic //pending for name change. This class is responsible for calculating multicast level and probabilities. "multicast" is a temporary name.
     {
         public int RollMulticastLevel(Player player)
         {
