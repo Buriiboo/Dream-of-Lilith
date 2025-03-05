@@ -1,8 +1,12 @@
-using Dream.Models;
-using Dream.Logic;
+// <copyright file="Frostbolt.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Dream.Abilities
 {
+    using Dream.Logic;
+    using Dream.Models;
+
     public class Frostbolt : Ability
     {
         public Frostbolt()
@@ -12,11 +16,11 @@ namespace Dream.Abilities
 
         public override void UseAbility(Player player, Monster currentEnemy)
         {
-            if (player.CurrentMana >= ManaCost)
+            if (player.CurrentMana >= this.ManaCost)
             {
-                player.CurrentMana -= ManaCost;
-                Console.WriteLine($"You cast {Name}!!");
-                TriggerMulticast(player, currentEnemy);
+                player.CurrentMana -= this.ManaCost;
+                Console.WriteLine($"You cast {this.Name}!!");
+                this.TriggerMulticast(player, currentEnemy);
             }
             else
             {
@@ -33,24 +37,24 @@ namespace Dream.Abilities
             switch (multicastLevel)
             {
                 case 0:
-                    Console.WriteLine($"You cast a normal frostbolt and deal {Power * player.Damage} damage!");
-                    currentEnemy.CurrentHP -= Power * player.Damage;
+                    Console.WriteLine($"You cast a normal frostbolt and deal {this.Power * player.Damage} damage!");
+                    currentEnemy.CurrentHP -= this.Power * player.Damage;
                     break;
                 case 2:
-                    Console.WriteLine($"Multicast level 2!! You deal {Power * player.Damage * 2} damage!");
-                    currentEnemy.CurrentHP -= Power * player.Damage * 2;
+                    Console.WriteLine($"Multicast level 2!! You deal {this.Power * player.Damage * 2} damage!");
+                    currentEnemy.CurrentHP -= this.Power * player.Damage * 2;
                     break;
                 case 3:
-                    Console.WriteLine($"Multicast level 3!! You deal {Power * player.Damage * 3} damage!");
-                    currentEnemy.CurrentHP -= Power * player.Damage * 3;
+                    Console.WriteLine($"Multicast level 3!! You deal {this.Power * player.Damage * 3} damage!");
+                    currentEnemy.CurrentHP -= this.Power * player.Damage * 3;
                     break;
                 case 4:
-                    Console.WriteLine($"Multicast level 4!! You deal {Power * player.Damage * 4} damage!");
-                    currentEnemy.CurrentHP -= Power * player.Damage * 4;
+                    Console.WriteLine($"Multicast level 4!! You deal {this.Power * player.Damage * 4} damage!");
+                    currentEnemy.CurrentHP -= this.Power * player.Damage * 4;
                     break;
                 default:
-                    Console.WriteLine($"Your magic implodes and you deal {Power * player.Damage / 2} damage to yourself...");
-                    player.CurrentHP -= Power * player.Damage / 2;
+                    Console.WriteLine($"Your magic implodes and you deal {this.Power * player.Damage / 2} damage to yourself...");
+                    player.CurrentHP -= this.Power * player.Damage / 2;
                     break;
             }
         }

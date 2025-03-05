@@ -1,42 +1,51 @@
-using System;
-using Dream.Models;
-using Dream.Abilities;
+// <copyright file="BattleLogic.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Dream.Logic
 {
+    using System;
+    using Dream.Abilities;
+    using Dream.Models;
+
     public class BattleLogic
     {
-        private Monster currentEnemy;
+        required public Monster CurrentEnemy { get; set; }
+
+        public BattleLogic()
+        {
+            this.CurrentEnemy = new Monster(string.Empty, 0, 0, 0, 0, 0, 0, 0, 0);
+        }
 
         public void StartBattle(Player player, Monster enemy)
         {
-            currentEnemy = enemy;
-            Console.WriteLine($"You encounter a {currentEnemy.Name}!");
+            this.CurrentEnemy = enemy;
+            Console.WriteLine($"You encounter a {this.CurrentEnemy.Name}!");
 
-            while (player.CurrentHP > 0 && currentEnemy.CurrentHP > 0)
+            while (player.CurrentHP > 0 && this.CurrentEnemy.CurrentHP > 0)
             {
-                Console.WriteLine($"{player.Name}'s HP: {player.CurrentHP}/{player.MaxHP} | {currentEnemy.Name}'s HP: {currentEnemy.CurrentHP}/{currentEnemy.MaxHP}");
+                Console.WriteLine($"{player.Name}'s HP: {player.CurrentHP}/{player.MaxHP} | {this.CurrentEnemy.Name}'s HP: {this.CurrentEnemy.CurrentHP}/{this.CurrentEnemy.MaxHP}");
                 Console.WriteLine("1. Attack");
                 Console.WriteLine("2. Use Ability");
 
-                string choice = Console.ReadLine();
+                string choice = Console.ReadLine() ?? string.Empty;
 
                 switch (choice)
                 {
                     case "1":
-                        player.Attack(currentEnemy);
+                        player.Attack(this.CurrentEnemy);
                         break;
                     case "2":
-                        UseAbility(player, currentEnemy);
+                        this.UseAbility(player, this.CurrentEnemy);
                         break;
                     default:
                         Console.WriteLine("Invalid choice. Try again.");
                         break;
                 }
 
-                if (currentEnemy.IsAlive())
+                if (this.CurrentEnemy.IsAlive())
                 {
-                    currentEnemy.Attack(player);
+                    this.CurrentEnemy.Attack(player);
                 }
             }
 
@@ -46,7 +55,7 @@ namespace Dream.Logic
             }
             else
             {
-                Console.WriteLine($"You defeated the {currentEnemy.Name}!");
+                Console.WriteLine($"You defeated the {this.CurrentEnemy.Name}!");
             }
         }
 
@@ -56,7 +65,7 @@ namespace Dream.Logic
             for (int i = 0; i < player.Abilities.Count; i++)
             {
                 var ability = player.Abilities[i];
-                Console.WriteLine($"{i + 1}. {ability.Name} - {ability.Description} (Damage: {ability.Power}, Mana Cost: {ability.ManaCost})");            
+                Console.WriteLine($"{i + 1}. {ability.Name} - {ability.Description} (Damage: {ability.Power}, Mana Cost: {ability.ManaCost})");
             }
 
             if (int.TryParse(Console.ReadLine(), out int abilityIndex) && abilityIndex > 0 && abilityIndex <= player.Abilities.Count)

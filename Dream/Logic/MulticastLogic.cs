@@ -1,24 +1,38 @@
-using Dream.Models;
+// <copyright file="MulticastLogic.cs" company="PlaceholderCompany">
+// Copyright (c) PlaceholderCompany. All rights reserved.
+// </copyright>
 
 namespace Dream.Logic
 {
-    public class MulticastLogic
+    using Dream.Models;
+
+    public class MulticastLogic //pending for name change. This class is responsible for calculating multicast level and probabilities. "multicast" is a temporary name.
     {
         public int RollMulticastLevel(Player player)
         {
-            int[] probabilities = CalculateProbabilities(player);
+            int[] probabilities = this.CalculateProbabilities(player);
             int roll = new Random().Next(1, 101);
 
             if (roll <= probabilities[0])
+            {
                 return 0;
+            }
             else if (roll <= probabilities[0] + probabilities[1])
+            {
                 return 2;
+            }
             else if (roll <= probabilities[0] + probabilities[1] + probabilities[2])
+            {
                 return 3;
+            }
             else if (roll <= probabilities[0] + probabilities[1] + probabilities[2] + probabilities[3])
+            {
                 return 4;
+            }
             else
+            {
                 return -1;
+            }
         }
 
         public int[] CalculateProbabilities(Player player)
